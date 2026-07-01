@@ -9,17 +9,22 @@
 
         <jta-data-source>jdbc/techmart_db</jta-data-source>
 
-        <properties>
+        <class>lk.jiat.techmart.entity.User</class>
+        <class>lk.jiat.techmart.entity.Category</class>
+        <class>lk.jiat.techmart.entity.Product</class>
+        <class>lk.jiat.techmart.entity.Inventory</class>
+        <class>lk.jiat.techmart.entity.Cart</class>
+        <class>lk.jiat.techmart.entity.CartItem</class>
+        <class>lk.jiat.techmart.entity.Order</class>
+        <class>lk.jiat.techmart.entity.OrderItem</class>
+        <class>lk.jiat.techmart.entity.Payment</class>
+        <class>lk.jiat.techmart.entity.Notification</class>
 
+        <exclude-unlisted-classes>false</exclude-unlisted-classes>
+
+        <properties>
             <property name="jakarta.persistence.schema-generation.database.action"
                       value="none"/>
-
-            <property name="hibernate.show_sql"
-                      value="true"/>
-
-            <property name="hibernate.format_sql"
-                      value="true"/>
-
         </properties>
 
     </persistence-unit>

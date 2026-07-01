@@ -19,6 +19,15 @@
 
     <dependencies>
 
+        <!-- Core -->
+        <dependency>
+            <groupId>lk.jiat</groupId>
+            <artifactId>TechMart-Core</artifactId>
+            <version>${project.version}</version>
+            <type>jar</type>
+        </dependency>
+
+        <!-- EJB -->
         <dependency>
             <groupId>lk.jiat</groupId>
             <artifactId>TechMart-EJB</artifactId>
@@ -26,6 +35,7 @@
             <type>ejb</type>
         </dependency>
 
+        <!-- Web -->
         <dependency>
             <groupId>lk.jiat</groupId>
             <artifactId>TechMart-Web</artifactId>
@@ -34,5 +44,44 @@
         </dependency>
 
     </dependencies>
+
+    <build>
+        <plugins>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-ear-plugin</artifactId>
+                <version>3.3.0</version>
+
+                <configuration>
+
+                    <defaultLibBundleDir>lib</defaultLibBundleDir>
+
+                    <modules>
+
+                        <jarModule>
+                            <groupId>lk.jiat</groupId>
+                            <artifactId>TechMart-Core</artifactId>
+                        </jarModule>
+
+                        <ejbModule>
+                            <groupId>lk.jiat</groupId>
+                            <artifactId>TechMart-EJB</artifactId>
+                        </ejbModule>
+
+                        <webModule>
+                            <groupId>lk.jiat</groupId>
+                            <artifactId>TechMart-Web</artifactId>
+                            <contextRoot>TechMart</contextRoot>
+                        </webModule>
+
+                    </modules>
+
+                </configuration>
+
+            </plugin>
+
+        </plugins>
+    </build>
 
 </project>

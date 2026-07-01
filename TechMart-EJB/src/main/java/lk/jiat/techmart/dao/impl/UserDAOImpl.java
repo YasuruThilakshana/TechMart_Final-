@@ -13,7 +13,7 @@ public class UserDAOImpl extends AbstractDAO<User, Long> implements UserDAO {
     public Optional<User> findByEmail(String email) {
 
         return entityManager.createQuery(
-                        "SELECT u FROM User u WHERE u.email=:email",
+                        "SELECT u FROM lk.jiat.techmart.entity.User u WHERE u.email=:email",
                         User.class)
                 .setParameter("email", email)
                 .getResultStream()
