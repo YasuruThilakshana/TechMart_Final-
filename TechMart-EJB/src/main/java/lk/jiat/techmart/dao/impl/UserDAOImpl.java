@@ -13,9 +13,21 @@ public class UserDAOImpl extends AbstractDAO<User, Long> implements UserDAO {
     public Optional<User> findByEmail(String email) {
 
         return entityManager.createQuery(
-                        "SELECT u FROM User u WHERE u.email = :email",
+                        "SELECT u FROM User u WHERE u.email=:email",
                         User.class)
                 .setParameter("email", email)
+                .getResultStream()
+                .findFirst();
+    }
+
+    @Override
+    public Optional<User> authenticate(String email, String password) {
+
+        return entityManager.createQuery(
+                        "SELECT u FROM User u WHERE u.email=:email AND u.password=:password",
+                        User.class)
+                .setParameter("email", email)
+                .setParameter("password", password)
                 .getResultStream()
                 .findFirst();
     }

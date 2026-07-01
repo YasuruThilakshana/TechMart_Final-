@@ -8,4 +8,6 @@ public interface UserDAO extends GenericDAO<User, Long> {
 
     Optional<User> findByEmail(String email);
 
+    Optional<User> authenticate(String email, String password);
+
 }
