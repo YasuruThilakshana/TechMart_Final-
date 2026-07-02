@@ -13,9 +13,16 @@ public class ProductDAOImpl extends AbstractDAO<Product, Long> implements Produc
     public List<Product> findActiveProducts() {
 
         return entityManager.createQuery(
-                "SELECT p FROM Product p WHERE p.active = true",
+                """
+                SELECT DISTINCT p
+                FROM Product p
+                LEFT JOIN FETCH p.category
+                LEFT JOIN FETCH p.inventory
+                WHERE p.active = true
+                """,
                 Product.class
         ).getResultList();
+
     }
 
     @Override

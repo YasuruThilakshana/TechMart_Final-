@@ -30,4 +30,19 @@ public class InventoryDAOImpl extends AbstractDAO<Inventory, Long>
                         Inventory.class)
                 .getResultList();
     }
+
+    @Override
+    public List<Inventory> findAll() {
+
+        return entityManager.createQuery(
+                """
+                SELECT DISTINCT i
+                FROM Inventory i
+                LEFT JOIN FETCH i.product
+                LEFT JOIN FETCH i.product.category
+                """,
+                Inventory.class
+        ).getResultList();
+
+    }
 }

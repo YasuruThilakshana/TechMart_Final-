@@ -73,7 +73,12 @@
 
                 <div class="card-body text-center">
 
-                    Browse Products
+                    <a href="${pageContext.request.contextPath}/customer/products"
+                       class="btn btn-success">
+
+                        Browse Products
+
+                    </a>
 
                 </div>
 
