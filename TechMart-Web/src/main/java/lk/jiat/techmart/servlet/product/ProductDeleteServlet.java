@@ -6,39 +6,27 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import lk.jiat.techmart.entity.Product;
 import lk.jiat.techmart.service.ProductService;
 
 import java.io.IOException;
-import java.util.List;
 
-import lk.jiat.techmart.service.CategoryService;
-
-@WebServlet("/admin/products")
-public class ProductListServlet extends HttpServlet {
+@WebServlet("/admin/products/delete")
+public class ProductDeleteServlet extends HttpServlet {
 
     @Inject
     private ProductService productService;
-
-    @Inject
-    private CategoryService categoryService;
 
     @Override
     protected void doGet(HttpServletRequest request,
                          HttpServletResponse response)
             throws ServletException, IOException {
 
-        request.setAttribute(
-                "products",
-                productService.findAll()
-        );
+        Long id = Long.parseLong(request.getParameter("id"));
 
-        request.setAttribute(
-                "categories",
-                categoryService.findActiveCategories()
-        );
+        productService.delete(id);
 
-        request.getRequestDispatcher("/admin/products.jsp")
-                .forward(request, response);
+        response.sendRedirect(
+                request.getContextPath() + "/admin/products"
+        );
     }
 }

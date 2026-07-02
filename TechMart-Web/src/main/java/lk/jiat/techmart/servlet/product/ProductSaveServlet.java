@@ -15,11 +15,17 @@ import java.io.IOException;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
+import lk.jiat.techmart.service.CategoryService;
+
 @WebServlet("/admin/products/save")
 public class ProductSaveServlet extends HttpServlet {
 
     @Inject
     private ProductService productService;
+
+
+    @Inject
+    private CategoryService categoryService;
 
     @Override
     protected void doPost(HttpServletRequest request,
@@ -36,12 +42,12 @@ public class ProductSaveServlet extends HttpServlet {
         product.setCreatedAt(LocalDateTime.now());
         product.setUpdatedAt(LocalDateTime.now());
 
-        Long categoryId = Long.parseLong(request.getParameter("categoryId"));
 
-        Category category = new Category();
-        category.setId(categoryId);
+        Long categoryId =
+                Long.parseLong(request.getParameter("categoryId"));
 
-        product.setCategory(category);
+        categoryService.findById(categoryId)
+                .ifPresent(product::setCategory);
 
         Inventory inventory = new Inventory();
         inventory.setProduct(product);
