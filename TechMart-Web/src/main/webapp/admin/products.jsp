@@ -16,7 +16,7 @@
 
         <p class="text-muted mb-0">
 
-            Manage all products
+            Manage Products & Inventory
 
         </p>
 
@@ -30,7 +30,7 @@
 
         <h5 class="mb-0">
 
-            Add New Product
+            Add Product
 
         </h5>
 
@@ -51,10 +51,11 @@
 
                     </label>
 
-                    <input type="text"
-                           name="name"
-                           class="form-control"
-                           required>
+                    <input
+                            type="text"
+                            name="name"
+                            class="form-control"
+                            required>
 
                 </div>
 
@@ -66,7 +67,8 @@
 
                     </label>
 
-                    <select name="categoryId"
+                    <select
+                            name="categoryId"
                             class="form-select"
                             required>
 
@@ -103,12 +105,13 @@
 
                     </label>
 
-                    <input type="number"
-                           step="0.01"
-                           min="0"
-                           name="price"
-                           class="form-control"
-                           required>
+                    <input
+                            type="number"
+                            step="0.01"
+                            min="0"
+                            name="price"
+                            class="form-control"
+                            required>
 
                 </div>
 
@@ -120,82 +123,83 @@
 
                     </label>
 
-                    <input type="number"
-                           min="0"
-                           name="quantity"
-                           class="form-control"
-                           required>
+                    <input
+                            type="number"
+                            min="0"
+                            name="quantity"
+                            class="form-control"
+                            required>
 
                 </div>
 
-            </div>                <div class="col-md-12 mb-3">
+            </div>
 
-            <label class="form-label">
+            <div class="row">
 
-                Description
+                <div class="col-md-6 mb-3">
 
-            </label>
+                    <label class="form-label">
 
-            <textarea
-                    name="description"
-                    rows="3"
-                    class="form-control"></textarea>
+                        Reorder Level
 
-        </div>
+                    </label>
+
+                    <input
+                            type="number"
+                            min="0"
+                            value="5"
+                            name="reorderLevel"
+                            class="form-control"
+                            required>
+
+                </div>
+
+                <div class="col-md-6 mb-3">
+
+                    <label class="form-label">
+
+                        Status
+
+                    </label>
+
+                    <input
+                            type="text"
+                            class="form-control"
+                            value="Active"
+                            readonly>
+
+                </div>
+
+            </div>
+
+            <div class="mb-3">
+
+                <label class="form-label">
+
+                    Description
+
+                </label>
+
+                <textarea
+                        name="description"
+                        rows="4"
+                        class="form-control"></textarea>
+
+            </div>
+
+            <button
+                    type="submit"
+                    class="btn btn-success">
+
+                <i class="bi bi-plus-circle"></i>
+
+                Save Product
+
+            </button>
+
+        </form>
 
     </div>
-
-    <div class="row">
-
-        <div class="col-md-6 mb-3">
-
-            <label class="form-label">
-
-                Reorder Level
-
-            </label>
-
-            <input
-                    type="number"
-                    name="reorderLevel"
-                    class="form-control"
-                    min="0"
-                    value="5"
-                    required>
-
-        </div>
-
-        <div class="col-md-6 mb-3">
-
-            <label class="form-label">
-
-                Status
-
-            </label>
-
-            <input
-                    type="text"
-                    class="form-control"
-                    value="Active"
-                    readonly>
-
-        </div>
-
-    </div>
-
-    <button
-            type="submit"
-            class="btn btn-success">
-
-        <i class="bi bi-plus-circle"></i>
-
-        Save Product
-
-    </button>
-
-    </form>
-
-</div>
 
 </div>
 
@@ -213,8 +217,7 @@
 
     <div class="card-body">
 
-        <table
-                class="table table-bordered table-hover align-middle">
+        <table class="table table-bordered table-hover align-middle">
 
             <thead class="table-light">
 
@@ -228,7 +231,7 @@
 
                 <th>Price</th>
 
-                <th>Quantity</th>
+                <th>Qty</th>
 
                 <th>Status</th>
 
@@ -244,27 +247,27 @@
 
             <tbody><c:choose>
 
-    <c:when test="${not empty products}">
+                <c:when test="${not empty products}">
 
-        <c:forEach items="${products}" var="product">
+                    <c:forEach items="${products}" var="product">
 
-            <tr>
+                        <tr>
 
-                <td>${product.id}</td>
+                            <td>${product.id}</td>
 
-                <td>${product.name}</td>
+                            <td>${product.name}</td>
 
-                <td>${product.category.name}</td>
+                            <td>${product.category.name}</td>
 
-                <td>Rs. ${product.price}</td>
+                            <td>Rs. ${product.price}</td>
 
-                <td>${product.inventory.quantity}</td>
+                            <td>${product.inventory.quantity}</td>
 
-                <td>
+                            <td>
 
-                    <c:choose>
+                                <c:choose>
 
-                        <c:when test="${product.active}">
+                                    <c:when test="${product.active}">
 
                             <span class="badge bg-success">
 
@@ -272,9 +275,9 @@
 
                             </span>
 
-                        </c:when>
+                                    </c:when>
 
-                        <c:otherwise>
+                                    <c:otherwise>
 
                             <span class="badge bg-danger">
 
@@ -282,65 +285,299 @@
 
                             </span>
 
-                        </c:otherwise>
+                                    </c:otherwise>
 
-                    </c:choose>
+                                </c:choose>
 
-                </td>
+                            </td>
 
-                <td>
+                            <td>
+
+                                <button
+                                        type="button"
+                                        class="btn btn-warning btn-sm edit-btn"
+
+                                        data-bs-toggle="modal"
+                                        data-bs-target="#editProductModal"
+
+                                        data-id="${product.id}"
+                                        data-name="${product.name}"
+                                        data-description="${product.description}"
+                                        data-price="${product.price}"
+                                        data-categoryid="${product.category.id}"
+                                        data-quantity="${product.inventory.quantity}"
+                                        data-reorderlevel="${product.inventory.reorderLevel}"
+                                        data-active="${product.active}">
+
+                                    <i class="bi bi-pencil-square"></i>
+
+                                    Edit
+
+                                </button>
+
+                                <a href="${pageContext.request.contextPath}/admin/products/delete?id=${product.id}"
+                                   class="btn btn-danger btn-sm"
+                                   onclick="return confirm('Delete this product?');">
+
+                                    <i class="bi bi-trash"></i>
+
+                                    Delete
+
+                                </a>
+
+                            </td>
+
+                        </tr>
+
+                    </c:forEach>
+
+                </c:when>
+
+                <c:otherwise>
+
+                    <tr>
+
+                        <td colspan="7"
+                            class="text-center text-muted">
+
+                            No Products Found
+
+                        </td>
+
+                    </tr>
+
+                </c:otherwise>
+
+            </c:choose>
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+</div><!-- Edit Product Modal -->
+
+<div class="modal fade"
+     id="editProductModal"
+     tabindex="-1"
+     aria-hidden="true">
+
+    <div class="modal-dialog modal-lg">
+
+        <div class="modal-content">
+
+            <form action="${pageContext.request.contextPath}/admin/products/update"
+                  method="post">
+
+                <div class="modal-header">
+
+                    <h5 class="modal-title">
+
+                        Edit Product
+
+                    </h5>
+
+                    <button type="button"
+                            class="btn-close"
+                            data-bs-dismiss="modal">
+                    </button>
+
+                </div>
+
+                <div class="modal-body">
+
+                    <input type="hidden"
+                           id="editId"
+                           name="id">
+
+                    <div class="row">
+
+                        <div class="col-md-6 mb-3">
+
+                            <label class="form-label">
+
+                                Product Name
+
+                            </label>
+
+                            <input
+                                    type="text"
+                                    id="editName"
+                                    name="name"
+                                    class="form-control"
+                                    required>
+
+                        </div>
+
+                        <div class="col-md-6 mb-3">
+
+                            <label class="form-label">
+
+                                Category
+
+                            </label>
+
+                            <select
+                                    id="editCategory"
+                                    name="categoryId"
+                                    class="form-select"
+                                    required>
+
+                                <c:forEach items="${categories}" var="category">
+
+                                    <option value="${category.id}">
+
+                                            ${category.name}
+
+                                    </option>
+
+                                </c:forEach>
+
+                            </select>
+
+                        </div>
+
+                    </div>
+
+                    <div class="row">
+
+                        <div class="col-md-4 mb-3">
+
+                            <label class="form-label">
+
+                                Price
+
+                            </label>
+
+                            <input
+                                    type="number"
+                                    step="0.01"
+                                    id="editPrice"
+                                    name="price"
+                                    class="form-control"
+                                    required>
+
+                        </div>
+
+                        <div class="col-md-4 mb-3">
+
+                            <label class="form-label">
+
+                                Quantity
+
+                            </label>
+
+                            <input
+                                    type="number"
+                                    id="editQuantity"
+                                    name="quantity"
+                                    class="form-control"
+                                    required>
+
+                        </div>
+
+                        <div class="col-md-4 mb-3">
+
+                            <label class="form-label">
+
+                                Reorder Level
+
+                            </label>
+
+                            <input
+                                    type="number"
+                                    id="editReorderLevel"
+                                    name="reorderLevel"
+                                    class="form-control"
+                                    required>
+
+                        </div>
+
+                    </div>
+
+                    <div class="mb-3">
+
+                        <label class="form-label">
+
+                            Description
+
+                        </label>
+
+                        <textarea
+                                id="editDescription"
+                                name="description"
+                                rows="4"
+                                class="form-control"></textarea>
+
+                    </div>
+
+                </div>
+
+                <div class="modal-footer">
 
                     <button
                             type="button"
-                            class="btn btn-warning btn-sm edit-btn"
+                            class="btn btn-secondary"
+                            data-bs-dismiss="modal">
 
-                            data-bs-toggle="modal"
-                            data-bs-target="#editProductModal"
-
-                            data-id="${product.id}"
-                            data-name="${product.name}"
-                            data-description="${product.description}"
-                            data-price="${product.price}"
-                            data-category="${product.category.id}"
-                            data-active="${product.active}">
-
-                        <i class="bi bi-pencil-square"></i>
-
-                        Edit
+                        Cancel
 
                     </button>
 
-                    <a href="${pageContext.request.contextPath}/admin/products/delete?id=${product.id}"
-                       class="btn btn-danger btn-sm"
-                       onclick="return confirm('Delete this product?');">
+                    <button
+                            type="submit"
+                            class="btn btn-primary">
 
-                        <i class="bi bi-trash"></i>
+                        Update Product
 
-                        Delete
+                    </button>
 
-                    </a>
+                </div>
 
-                </td>
+            </form>
 
-            </tr>
+        </div>
 
-        </c:forEach>
+    </div>
 
-    </c:when>
+</div>
+<script>
 
-    <c:otherwise>
+    document.addEventListener("DOMContentLoaded", function () {
 
-        <tr>
+        const editModal =
+            document.getElementById("editProductModal");
 
-            <td colspan="7"
-                class="text-center text-muted">
+        editModal.addEventListener("show.bs.modal", function (event) {
 
-                No Products Available
+            const button = event.relatedTarget;
 
-            </td>
+            document.getElementById("editId").value =
+                button.getAttribute("data-id");
 
-        </tr>
+            document.getElementById("editName").value =
+                button.getAttribute("data-name");
 
-    </c:otherwise>
+            document.getElementById("editDescription").value =
+                button.getAttribute("data-description");
 
-</c:choose>
+            document.getElementById("editPrice").value =
+                button.getAttribute("data-price");
+
+            document.getElementById("editCategory").value =
+                button.getAttribute("data-categoryid");
+
+            document.getElementById("editQuantity").value =
+                button.getAttribute("data-quantity");
+
+            document.getElementById("editReorderLevel").value =
+                button.getAttribute("data-reorderlevel");
+
+        });
+
+    });
+
+</script>
+
+<%@ include file="includes/footer.jspf" %>

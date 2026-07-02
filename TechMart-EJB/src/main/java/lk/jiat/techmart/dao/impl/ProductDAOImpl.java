@@ -44,4 +44,19 @@ public class ProductDAOImpl extends AbstractDAO<Product, Long> implements Produc
                 .setParameter("keyword", "%" + keyword + "%")
                 .getResultList();
     }
+
+    @Override
+    public List<Product> findAll() {
+
+        return entityManager.createQuery(
+                """
+                SELECT DISTINCT p
+                FROM Product p
+                LEFT JOIN FETCH p.category
+                LEFT JOIN FETCH p.inventory
+                """,
+                Product.class
+        ).getResultList();
+
+    }
 }
