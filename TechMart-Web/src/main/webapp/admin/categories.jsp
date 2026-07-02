@@ -1,386 +1,398 @@
-<%--<%@ page contentType="text/html;charset=UTF-8" language="java" %>--%>
-<%--<%@ taglib prefix="c" uri="jakarta.tags.core" %>--%>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="c" uri="jakarta.tags.core" %>
 
-<%--<%@ include file="includes/header.jspf" %>--%>
-<%--<%@ include file="includes/sidebar.jspf" %>--%>
+<%@ include file="includes/header.jspf" %>
+<%@ include file="includes/sidebar.jspf" %>
 
-<%--<div class="container-fluid">--%>
+<div class="d-flex justify-content-between align-items-center mb-4">
 
-<%--    <div class="row">--%>
+    <div>
 
-<%--        <div class="col-md-12">--%>
+        <h2 class="mb-1">
 
-<%--            <div class="d-flex justify-content-between align-items-center mb-4">--%>
+            Category Management
 
-<%--                <div>--%>
+        </h2>
 
-<%--                    <h2 class="mb-0">--%>
+        <p class="text-muted mb-0">
 
-<%--                        Category Management--%>
+            Manage all product categories
 
-<%--                    </h2>--%>
+        </p>
 
-<%--                    <small class="text-muted">--%>
+    </div>
 
-<%--                        Manage all product categories--%>
+</div>
 
-<%--                    </small>--%>
+<div class="card shadow-sm mb-4">
 
-<%--                </div>--%>
+    <div class="card-header bg-primary text-white">
 
-<%--            </div>--%>
+        <h5 class="mb-0">
 
-<%--            <hr>--%>
-<%--            <div class="card shadow-sm mb-4">--%>
+            Add New Category
 
-<%--                <div class="card-header bg-primary text-white">--%>
+        </h5>
 
-<%--                    <h5 class="mb-0">--%>
-<%--                        Add New Category--%>
-<%--                    </h5>--%>
+    </div>
 
-<%--                </div>--%>
+    <div class="card-body">
 
-<%--                <div class="card-body">--%>
+        <form action="${pageContext.request.contextPath}/admin/categories/save"
+              method="post">
 
-<%--                    <form action="${pageContext.request.contextPath}/admin/categories/save"--%>
-<%--                          method="post">--%>
+            <div class="row">
 
-<%--                        <div class="row">--%>
+                <div class="col-md-6 mb-3">
 
-<%--                            <div class="col-md-6 mb-3">--%>
+                    <label class="form-label">
 
-<%--                                <label class="form-label">--%>
-<%--                                    Category Name--%>
-<%--                                </label>--%>
+                        Category Name
 
-<%--                                <input type="text"--%>
-<%--                                       name="name"--%>
-<%--                                       class="form-control"--%>
-<%--                                       required>--%>
+                    </label>
 
-<%--                            </div>--%>
+                    <input
+                            type="text"
+                            name="name"
+                            class="form-control"
+                            required>
 
-<%--                            <div class="col-md-6 mb-3">--%>
+                </div>
 
-<%--                                <label class="form-label">--%>
-<%--                                    Status--%>
-<%--                                </label>--%>
+                <div class="col-md-6 mb-3">
 
-<%--                                <input type="text"--%>
-<%--                                       class="form-control"--%>
-<%--                                       value="Active"--%>
-<%--                                       readonly>--%>
+                    <label class="form-label">
 
-<%--                            </div>--%>
+                        Status
 
-<%--                        </div>--%>
+                    </label>
 
-<%--                        <div class="mb-3">--%>
+                    <input
+                            type="text"
+                            class="form-control"
+                            value="Active"
+                            readonly>
 
-<%--                            <label class="form-label">--%>
-<%--                                Description--%>
-<%--                            </label>--%>
+                </div>
 
-<%--                            <textarea--%>
-<%--                                    name="description"--%>
-<%--                                    rows="3"--%>
-<%--                                    class="form-control"></textarea>--%>
+            </div>
 
-<%--                        </div>--%>
+            <div class="mb-3">
 
-<%--                        <button type="submit"--%>
-<%--                                class="btn btn-success">--%>
+                <label class="form-label">
 
-<%--                            <i class="bi bi-plus-circle"></i>--%>
+                    Description
 
-<%--                            Save Category--%>
+                </label>
 
-<%--                        </button>--%>
+                <textarea
+                        class="form-control"
+                        rows="3"
+                        name="description"></textarea>
 
-<%--                    </form>--%>
+            </div>
 
-<%--                </div>--%>
+            <button
+                    type="submit"
+                    class="btn btn-success">
 
-<%--            </div>--%>
-<%--            <div class="card shadow-sm">--%>
+                <i class="bi bi-plus-circle"></i>
 
-<%--                <div class="card-header bg-dark text-white">--%>
+                Save Category
 
-<%--                    <h5 class="mb-0">--%>
+            </button>
 
-<%--                        Category List--%>
+        </form>
 
-<%--                    </h5>--%>
+    </div>
 
-<%--                </div>--%>
+</div>
 
-<%--                <div class="card-body">--%>
+<div class="card shadow-sm">
 
-<%--                    <table class="table table-bordered table-hover align-middle">--%>
+    <div class="card-header bg-dark text-white">
 
-<%--                        <thead class="table-light">--%>
+        <h5 class="mb-0">
 
-<%--                        <tr>--%>
+            Category List
 
-<%--                            <th width="80">ID</th>--%>
+        </h5>
 
-<%--                            <th>Name</th>--%>
+    </div>
 
-<%--                            <th>Description</th>--%>
+    <div class="card-body">
 
-<%--                            <th width="100">Status</th>--%>
+        <table class="table table-bordered table-hover align-middle">
 
-<%--                            <th width="220">Actions</th>--%>
+            <thead class="table-light">
 
-<%--                        </tr>--%>
+            <tr>
 
-<%--                        </thead>--%>
+                <th>ID</th>
 
-<%--                        <tbody>--%>
+                <th>Name</th>
 
-<%--                        <c:choose>--%>
+                <th>Description</th>
 
-<%--                            <c:when test="${not empty categories}">--%>
+                <th>Status</th>
 
-<%--                                <c:forEach items="${categories}" var="category">--%>
+                <th width="220">
 
-<%--                                    <tr>--%>
+                    Actions
 
-<%--                                        <td>${category.id}</td>--%>
+                </th>
 
-<%--                                        <td>${category.name}</td>--%>
+            </tr>
 
-<%--                                        <td>${category.description}</td>--%>
+            </thead>
 
-<%--                                        <td>--%>
+            <tbody><c:choose>
 
-<%--                                            <c:choose>--%>
+    <c:when test="${not empty categories}">
 
-<%--                                                <c:when test="${category.active}">--%>
+        <c:forEach var="category" items="${categories}">
 
-<%--                                        <span class="badge bg-success">--%>
+            <tr>
 
-<%--                                            Active--%>
+                <td>${category.id}</td>
 
-<%--                                        </span>--%>
+                <td>${category.name}</td>
 
-<%--                                                </c:when>--%>
+                <td>${category.description}</td>
 
-<%--                                                <c:otherwise>--%>
+                <td>
 
-<%--                                        <span class="badge bg-danger">--%>
+                    <c:choose>
 
-<%--                                            Inactive--%>
+                        <c:when test="${category.active}">
 
-<%--                                        </span>--%>
+                            <span class="badge bg-success">
 
-<%--                                                </c:otherwise>--%>
+                                Active
 
-<%--                                            </c:choose>--%>
+                            </span>
 
-<%--                                        </td>--%>
+                        </c:when>
 
-<%--                                        <td>--%>
+                        <c:otherwise>
 
-<%--                                            <button--%>
-<%--                                                    class="btn btn-warning btn-sm edit-btn"--%>
+                            <span class="badge bg-danger">
 
-<%--                                                    data-id="${category.id}"--%>
-<%--                                                    data-name="${category.name}"--%>
-<%--                                                    data-description="${category.description}"--%>
-<%--                                                    data-active="${category.active}">--%>
+                                Inactive
 
-<%--                                                <i class="bi bi-pencil-square"></i>--%>
+                            </span>
 
-<%--                                                Edit--%>
+                        </c:otherwise>
 
-<%--                                            </button>--%>
+                    </c:choose>
 
-<%--                                            <a href="${pageContext.request.contextPath}/admin/categories/delete?id=${category.id}"--%>
-<%--                                               class="btn btn-danger btn-sm"--%>
-<%--                                               onclick="return confirm('Delete this category?');">--%>
+                </td>
 
-<%--                                                <i class="bi bi-trash"></i>--%>
+                <td>
 
-<%--                                                Delete--%>
+                    <button
+                            type="button"
+                            class="btn btn-warning btn-sm edit-btn"
 
-<%--                                            </a>--%>
+                            data-bs-toggle="modal"
+                            data-bs-target="#editCategoryModal"
 
-<%--                                        </td>--%>
+                            data-id="${category.id}"
+                            data-name="${category.name}"
+                            data-description="${category.description}"
+                            data-active="${category.active}">
 
-<%--                                    </tr>--%>
+                        <i class="bi bi-pencil-square"></i>
 
-<%--                                </c:forEach>--%>
+                        Edit
 
-<%--                            </c:when>--%>
+                    </button>
 
-<%--                            <c:otherwise>--%>
+                    <a href="${pageContext.request.contextPath}/admin/categories/delete?id=${category.id}"
+                       class="btn btn-danger btn-sm"
+                       onclick="return confirm('Are you sure you want to delete this category?');">
 
-<%--                                <tr>--%>
+                        <i class="bi bi-trash"></i>
 
-<%--                                    <td colspan="5" class="text-center text-muted">--%>
+                        Delete
 
-<%--                                        No categories available.--%>
+                    </a>
 
-<%--                                    </td>--%>
+                </td>
 
-<%--                                </tr>--%>
+            </tr>
 
-<%--                            </c:otherwise>--%>
+        </c:forEach>
 
-<%--                        </c:choose>--%>
+    </c:when>
 
-<%--                        </tbody>--%>
+    <c:otherwise>
 
-<%--                    </table>--%>
+        <tr>
 
-<%--                </div>--%>
+            <td colspan="5"
+                class="text-center text-muted">
 
-<%--            </div>--%>
-<%--            <!-- Edit Category Modal -->--%>
+                No Categories Found
 
-<%--            <div class="modal fade"--%>
-<%--                 id="editCategoryModal"--%>
-<%--                 tabindex="-1"--%>
-<%--                 aria-hidden="true">--%>
+            </td>
 
-<%--                <div class="modal-dialog">--%>
+        </tr>
 
-<%--                    <div class="modal-content">--%>
+    </c:otherwise>
 
-<%--                        <form action="${pageContext.request.contextPath}/admin/categories/update"--%>
-<%--                              method="post">--%>
+</c:choose>
 
-<%--                            <div class="modal-header">--%>
 
-<%--                                <h5 class="modal-title">--%>
+            </tbody>
 
-<%--                                    Edit Category--%>
+        </table>
 
-<%--                                </h5>--%>
+    </div>
 
-<%--                                <button type="button"--%>
-<%--                                        class="btn-close"--%>
-<%--                                        data-bs-dismiss="modal"></button>--%>
+</div>
 
-<%--                            </div>--%>
+<!-- Edit Category Modal -->
 
-<%--                            <div class="modal-body">--%>
+<div class="modal fade"
+     id="editCategoryModal"
+     tabindex="-1"
+     aria-hidden="true">
 
-<%--                                <input type="hidden"--%>
-<%--                                       id="editId"--%>
-<%--                                       name="id">--%>
+    <div class="modal-dialog">
 
-<%--                                <div class="mb-3">--%>
+        <div class="modal-content">
 
-<%--                                    <label class="form-label">--%>
+            <form action="${pageContext.request.contextPath}/admin/categories/update"
+                  method="post">
 
-<%--                                        Category Name--%>
+                <div class="modal-header">
 
-<%--                                    </label>--%>
+                    <h5 class="modal-title">
 
-<%--                                    <input type="text"--%>
-<%--                                           id="editName"--%>
-<%--                                           name="name"--%>
-<%--                                           class="form-control"--%>
-<%--                                           required>--%>
+                        Edit Category
 
-<%--                                </div>--%>
+                    </h5>
 
-<%--                                <div class="mb-3">--%>
+                    <button type="button"
+                            class="btn-close"
+                            data-bs-dismiss="modal">
 
-<%--                                    <label class="form-label">--%>
+                    </button>
 
-<%--                                        Description--%>
+                </div>
 
-<%--                                    </label>--%>
+                <div class="modal-body">
 
-<%--                                    <textarea--%>
-<%--                                            id="editDescription"--%>
-<%--                                            name="description"--%>
-<%--                                            rows="3"--%>
-<%--                                            class="form-control"></textarea>--%>
+                    <input type="hidden"
+                           id="editId"
+                           name="id">
 
-<%--                                </div>--%>
+                    <div class="mb-3">
 
-<%--                                <div class="form-check">--%>
+                        <label class="form-label">
 
-<%--                                    <input class="form-check-input"--%>
-<%--                                           type="checkbox"--%>
-<%--                                           id="editActive"--%>
-<%--                                           name="active">--%>
+                            Category Name
 
-<%--                                    <label class="form-check-label"--%>
-<%--                                           for="editActive">--%>
+                        </label>
 
-<%--                                        Active--%>
+                        <input
+                                type="text"
+                                id="editName"
+                                name="name"
+                                class="form-control"
+                                required>
 
-<%--                                    </label>--%>
+                    </div>
 
-<%--                                </div>--%>
+                    <div class="mb-3">
 
-<%--                            </div>--%>
+                        <label class="form-label">
 
-<%--                            <div class="modal-footer">--%>
+                            Description
 
-<%--                                <button type="button"--%>
-<%--                                        class="btn btn-secondary"--%>
-<%--                                        data-bs-dismiss="modal">--%>
+                        </label>
 
-<%--                                    Cancel--%>
+                        <textarea
+                                id="editDescription"
+                                name="description"
+                                class="form-control"
+                                rows="3"></textarea>
 
-<%--                                </button>--%>
+                    </div>
 
-<%--                                <button type="submit"--%>
-<%--                                        class="btn btn-primary">--%>
+                    <div class="form-check">
 
-<%--                                    Update Category--%>
+                        <input
+                                class="form-check-input"
+                                type="checkbox"
+                                id="editActive"
+                                name="active">
 
-<%--                                </button>--%>
+                        <label
+                                class="form-check-label"
+                                for="editActive">
 
-<%--                            </div>--%>
+                            Active
 
-<%--                        </form>--%>
+                        </label>
 
-<%--                    </div>--%>
+                    </div>
 
-<%--                </div>--%>
+                </div>
 
-<%--            </div>--%>
+                <div class="modal-footer">
 
-<%--            <script>--%>
+                    <button
+                            type="button"
+                            class="btn btn-secondary"
+                            data-bs-dismiss="modal">
 
-<%--                document.querySelectorAll(".edit-btn").forEach(button => {--%>
+                        Cancel
 
-<%--                    button.addEventListener("click", function () {--%>
+                    </button>
 
-<%--                        document.getElementById("editId").value =--%>
-<%--                            this.dataset.id;--%>
+                    <button
+                            type="submit"
+                            class="btn btn-primary">
 
-<%--                        document.getElementById("editName").value =--%>
-<%--                            this.dataset.name;--%>
+                        Update Category
 
-<%--                        document.getElementById("editDescription").value =--%>
-<%--                            this.dataset.description;--%>
+                    </button>
 
-<%--                        document.getElementById("editActive").checked =--%>
-<%--                            this.dataset.active === "true";--%>
+                </div>
 
-<%--                        new bootstrap.Modal(--%>
-<%--                            document.getElementById("editCategoryModal")--%>
-<%--                        ).show();--%>
+            </form>
 
-<%--                    });--%>
+        </div>
 
-<%--                });--%>
+    </div>
 
-<%--            </script>--%>
+</div>
 
-<%--        </div>--%>
+<script>
 
-<%--    </div>--%>
+    const editModal = document.getElementById("editCategoryModal");
 
-<%--</div>--%>
+    editModal.addEventListener("show.bs.modal", function (event) {
 
-<%--<%@ include file="includes/footer.jspf" %>--%>
+        const button = event.relatedTarget;
+
+        document.getElementById("editId").value =
+            button.getAttribute("data-id");
+
+        document.getElementById("editName").value =
+            button.getAttribute("data-name");
+
+        document.getElementById("editDescription").value =
+            button.getAttribute("data-description");
+
+        document.getElementById("editActive").checked =
+            button.getAttribute("data-active") === "true";
+
+    });
+
+</script>
+
+
+<%@ include file="includes/footer.jspf" %>
