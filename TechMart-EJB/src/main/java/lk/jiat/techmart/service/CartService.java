@@ -30,4 +30,6 @@ public interface CartService {
 
     void clearCart(Long userId);
 
+    void updateQuantity(Long cartItemId, Integer quantity);
+
 }

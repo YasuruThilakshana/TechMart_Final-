@@ -16,6 +16,7 @@ import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
+import java.math.BigDecimal;
 
 @Stateless
 public class CartServiceImpl implements CartService {
@@ -166,5 +167,30 @@ public class CartServiceImpl implements CartService {
 
             items.forEach(cartItemDAO::delete);
         }
+    }
+
+
+    @Override
+    public void updateQuantity(Long cartItemId, Integer quantity) {
+
+        CartItem item = cartItemDAO.findById(cartItemId)
+                .orElseThrow(() ->
+                        new RuntimeException("Cart item not found"));
+
+        if (quantity <= 0) {
+
+            cartItemDAO.delete(item);
+            return;
+
+        }
+
+        item.setQuantity(quantity);
+
+        item.setSubtotal(
+                item.getUnitPrice()
+                        .multiply(BigDecimal.valueOf(quantity))
+        );
+
+        cartItemDAO.update(item);
     }
 }

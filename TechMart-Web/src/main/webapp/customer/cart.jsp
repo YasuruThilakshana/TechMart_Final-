@@ -85,10 +85,34 @@
 
                         <td>
 
-                                ${item.quantity}
+                            <form action="${pageContext.request.contextPath}/customer/cart/update"
+                                  method="post"
+                                  class="d-flex">
+
+                                <input
+                                        type="hidden"
+                                        name="cartItemId"
+                                        value="${item.id}">
+
+                                <input
+                                        type="number"
+                                        name="quantity"
+                                        value="${item.quantity}"
+                                        min="1"
+                                        class="form-control form-control-sm me-2"
+                                        style="width:90px;">
+
+                                <button
+                                        type="submit"
+                                        class="btn btn-primary btn-sm">
+
+                                    Update
+
+                                </button>
+
+                            </form>
 
                         </td>
-
                         <td>
 
                             Rs. ${item.subtotal}
