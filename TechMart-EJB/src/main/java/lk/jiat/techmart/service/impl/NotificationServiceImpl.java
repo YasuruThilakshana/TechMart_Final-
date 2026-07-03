@@ -30,32 +30,44 @@ public class NotificationServiceImpl implements NotificationService {
     @Override
     public void sendCustomerEmail(OrderMessageDTO order) {
 
-        LOGGER.info("Customer Email Sent : "
-                + order.getCustomerName());
+//        LOGGER.info("Customer Email Sent : "
+//                + order.getCustomerName());
+
+        LOGGER.warning("Customer Email Sent : " + order.getCustomerName());
+
 
     }
 
     @Override
     public void generateInvoice(OrderMessageDTO order) {
 
-        LOGGER.info("Invoice Generated : "
-                + order.getOrderId());
+//        LOGGER.info("Invoice Generated : "
+//                + order.getOrderId());
+
+
+        LOGGER.warning("Invoice Generated : " + order.getOrderId());
 
     }
 
     @Override
     public void updateAnalytics(OrderMessageDTO order) {
 
-        LOGGER.info("Analytics Updated : "
-                + order.getOrderId());
+//        LOGGER.info("Analytics Updated : "
+//                + order.getOrderId());
+
+
+        LOGGER.warning("Analytics Updated : " + order.getOrderId());
+
 
     }
 
     @Override
     public void notifyAdmin(OrderMessageDTO order) {
 
-        LOGGER.info("Admin Notified : "
-                + order.getOrderId());
+//        LOGGER.info("Admin Notified : "
+//                + order.getOrderId());
+
+        LOGGER.warning("Admin Notified : " + order.getOrderId());
 
     }
 

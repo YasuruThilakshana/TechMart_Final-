@@ -185,6 +185,29 @@
 
         </div>
 
+
+
+        <div class="col-md-3">
+
+            <div class="card">
+
+                <div class="card-body text-center">
+
+                    <h5>Performance</h5>
+
+                    <a href="<%=request.getContextPath()%>/admin/performance"
+                       class="btn btn-warning mt-2">
+
+                        View Metrics
+
+                    </a>
+
+                </div>
+
+            </div>
+
+        </div>
+
     </div>
 
 </div>

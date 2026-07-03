@@ -4,12 +4,14 @@ import jakarta.ejb.Stateless;
 import jakarta.inject.Inject;
 import lk.jiat.techmart.dao.InventoryDAO;
 import lk.jiat.techmart.entity.Inventory;
+import lk.jiat.techmart.performance.PerformanceMonitor;
 import lk.jiat.techmart.service.InventoryService;
 
 import java.util.List;
 import java.util.Optional;
 
 @Stateless
+@PerformanceMonitor
 public class InventoryServiceImpl implements InventoryService {
 
     @Inject

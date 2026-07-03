@@ -10,7 +10,11 @@ import org.mindrot.jbcrypt.BCrypt;
 import java.util.List;
 import java.util.Optional;
 import java.time.LocalDateTime;
+import lk.jiat.techmart.performance.PerformanceMonitor;
+
+
 @Stateless
+@PerformanceMonitor
 public class UserServiceImpl implements UserService {
 
 

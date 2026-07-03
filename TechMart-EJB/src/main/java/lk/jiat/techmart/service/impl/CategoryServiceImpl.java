@@ -4,12 +4,14 @@ import jakarta.ejb.Stateless;
 import jakarta.inject.Inject;
 import lk.jiat.techmart.dao.CategoryDAO;
 import lk.jiat.techmart.entity.Category;
+import lk.jiat.techmart.performance.PerformanceMonitor;
 import lk.jiat.techmart.service.CategoryService;
 
 import java.util.List;
 import java.util.Optional;
 
 @Stateless
+@PerformanceMonitor
 public class CategoryServiceImpl implements CategoryService {
 
     @Inject

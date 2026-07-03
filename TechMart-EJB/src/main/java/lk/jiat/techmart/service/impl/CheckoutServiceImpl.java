@@ -13,8 +13,10 @@ import lk.jiat.techmart.service.NotificationService;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.List;
+import lk.jiat.techmart.performance.PerformanceMonitor;
 
 @Stateless
+@PerformanceMonitor
 public class CheckoutServiceImpl implements CheckoutService {
 
     @Inject

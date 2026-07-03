@@ -35,25 +35,38 @@ public class OrderMessageListener implements MessageListener {
     @Override
     public void onMessage(Message message) {
 
+
+
         try {
 
             ObjectMessage objectMessage = (ObjectMessage) message;
 
             OrderMessageDTO order =
                     (OrderMessageDTO) objectMessage.getObject();
+//
+//            LOGGER.info("======================================");
+//            LOGGER.info("JMS Message Received");
+//            LOGGER.info("Order ID : " + order.getOrderId());
+//            LOGGER.info("======================================");
 
-            LOGGER.info("======================================");
-            LOGGER.info("JMS Message Received");
-            LOGGER.info("Order ID : " + order.getOrderId());
-            LOGGER.info("======================================");
+            LOGGER.warning("======================================");
+            LOGGER.warning("JMS Message Received");
+            LOGGER.warning("Order ID : " + order.getOrderId());
+            LOGGER.warning("======================================");
 
             notificationService.sendOrderNotification(order);
 
         } catch (Exception e) {
 
-            LOGGER.severe(e.getMessage());
+            LOGGER.severe("JMS Listener Error : " + e.getMessage());
+
+            e.printStackTrace();
 
         }
+
+
+
+
 
     }
 }

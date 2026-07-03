@@ -28,22 +28,24 @@ public class JMSProducerServiceImpl implements JMSProducerService {
 
         try {
 
-            LOGGER.info("Sending Order DTO : " + orderMessage.getOrderId());
+            LOGGER.warning("STEP 1 - Producer method entered");
+
+            LOGGER.warning("STEP 2 - Queue = " + orderQueue);
+
+            LOGGER.warning("STEP 3 - Order ID = " + orderMessage.getOrderId());
 
             jmsContext.createProducer()
                     .send(orderQueue, orderMessage);
 
-            LOGGER.info("JMS Message Sent Successfully.");
+            LOGGER.warning("STEP 4 - JMS Message Sent Successfully");
 
         } catch (Exception e) {
 
             LOGGER.log(Level.SEVERE,
-                    "Failed to send JMS Message", e);
+                    "JMS SEND FAILED", e);
 
-            throw new RuntimeException(
-                    "Failed to send JMS Message", e);
+            throw new RuntimeException(e);
 
         }
-
     }
 }

@@ -4,12 +4,14 @@ import jakarta.ejb.Stateless;
 import jakarta.inject.Inject;
 import lk.jiat.techmart.dao.ProductDAO;
 import lk.jiat.techmart.entity.Product;
+import lk.jiat.techmart.performance.PerformanceMonitor;
 import lk.jiat.techmart.service.ProductService;
 
 import java.util.List;
 import java.util.Optional;
 
 @Stateless
+@PerformanceMonitor
 public class ProductServiceImpl implements ProductService {
 
     @Inject
