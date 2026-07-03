@@ -11,6 +11,8 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 import lk.jiat.techmart.service.CartService;
+import lk.jiat.techmart.service.NotificationService;
+
 @Stateless
 public class CheckoutServiceImpl implements CheckoutService {
 
@@ -37,6 +39,9 @@ public class CheckoutServiceImpl implements CheckoutService {
 
     @Inject
     private CartService cartService;
+
+    @Inject
+    private NotificationService notificationService;
 
     @Override
     public Order placeOrder(Long userId) {
@@ -122,6 +127,8 @@ public class CheckoutServiceImpl implements CheckoutService {
         paymentDAO.save(payment);
 
         cartService.clearCart(userId);
+
+        notificationService.sendOrderNotification(order.getId());
 
         return order;
     }

@@ -10,6 +10,7 @@ import lk.jiat.techmart.entity.User;
 import lk.jiat.techmart.enums.UserRole;
 import lk.jiat.techmart.service.OrderItemService;
 import lk.jiat.techmart.service.OrderService;
+import lk.jiat.techmart.service.PaymentService;
 
 import java.io.IOException;
 
@@ -21,6 +22,9 @@ public class AdminOrderDetailsServlet extends HttpServlet {
 
     @Inject
     private OrderItemService orderItemService;
+
+    @Inject
+    private PaymentService paymentService;
 
     @Override
     protected void doGet(HttpServletRequest request,
@@ -49,6 +53,10 @@ public class AdminOrderDetailsServlet extends HttpServlet {
                     "items",
                     orderItemService.findByOrderId(orderId)
             );
+
+            paymentService.findByOrderId(orderId)
+                    .ifPresent(payment ->
+                            request.setAttribute("payment", payment));
 
         });
 

@@ -15,4 +15,6 @@ public interface OrderService {
 
     List<Order> findAll();
 
+    Order update(Order order);
+
 }
