@@ -12,6 +12,7 @@ import java.util.List;
 
 import lk.jiat.techmart.service.CartService;
 import lk.jiat.techmart.service.NotificationService;
+import lk.jiat.techmart.service.JMSProducerService;
 
 @Stateless
 public class CheckoutServiceImpl implements CheckoutService {
@@ -42,6 +43,9 @@ public class CheckoutServiceImpl implements CheckoutService {
 
     @Inject
     private NotificationService notificationService;
+
+    @Inject
+    private JMSProducerService jmsProducerService;
 
     @Override
     public Order placeOrder(Long userId) {
@@ -130,11 +134,11 @@ public class CheckoutServiceImpl implements CheckoutService {
 
         cartService.clearCart(userId);
 
-        System.out.println("========== BEFORE ASYNC ==========");
 
-        notificationService.sendOrderNotification(order.getId());
 
-        System.out.println("========== AFTER ASYNC ==========");
+//        notificationService.sendOrderNotification(order.getId());
+        jmsProducerService.sendOrderMessage(order.getId());
+
 
         return order;
     }
