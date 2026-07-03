@@ -17,7 +17,9 @@ public class NotificationServiceImpl implements NotificationService {
     public void sendOrderNotification(Long orderId) {
 
         LOGGER.info("=======================================");
+        System.out.println("ASYNC STARTED");
         LOGGER.info("Asynchronous Notification Started");
+        System.out.println("ASYNC FINISHED");
         LOGGER.info("Processing Order ID : " + orderId);
 
         try {

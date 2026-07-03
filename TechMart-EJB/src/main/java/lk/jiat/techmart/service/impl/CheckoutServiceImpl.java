@@ -46,6 +46,8 @@ public class CheckoutServiceImpl implements CheckoutService {
     @Override
     public Order placeOrder(Long userId) {
 
+
+
         User user = userDAO.findById(userId)
                 .orElseThrow(() ->
                         new RuntimeException("User not found"));
@@ -128,7 +130,11 @@ public class CheckoutServiceImpl implements CheckoutService {
 
         cartService.clearCart(userId);
 
+        System.out.println("========== BEFORE ASYNC ==========");
+
         notificationService.sendOrderNotification(order.getId());
+
+        System.out.println("========== AFTER ASYNC ==========");
 
         return order;
     }
