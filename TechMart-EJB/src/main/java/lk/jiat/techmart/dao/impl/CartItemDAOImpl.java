@@ -16,9 +16,11 @@ public class CartItemDAOImpl extends AbstractDAO<CartItem, Long>
 
         return entityManager.createQuery(
                         """
-                        SELECT ci
+                        SELECT DISTINCT ci
                         FROM CartItem ci
-                        JOIN FETCH ci.product
+                        JOIN FETCH ci.product p
+                        LEFT JOIN FETCH p.inventory
+                        LEFT JOIN FETCH p.category
                         WHERE ci.cart.id = :cartId
                         """,
                         CartItem.class

@@ -1,0 +1,26 @@
+package lk.jiat.techmart.servlet.customer;
+
+import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.WebServlet;
+import jakarta.servlet.http.HttpServlet;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+
+import java.io.IOException;
+
+@WebServlet("/customer/order-success")
+public class OrderSuccessServlet extends HttpServlet {
+
+    @Override
+    protected void doGet(HttpServletRequest request,
+                         HttpServletResponse response)
+            throws ServletException, IOException {
+
+        String orderId = request.getParameter("id");
+
+        request.setAttribute("orderId", orderId);
+
+        request.getRequestDispatcher("/customer/order-success.jsp")
+                .forward(request, response);
+    }
+}
