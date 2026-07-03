@@ -33,6 +33,13 @@
 
         </a>
 
+        <a href="${pageContext.request.contextPath}/customer/dashboard.jsp"
+           class="btn btn-dark">
+
+            Dashboard
+
+        </a>
+
     </div>
 
     <table class="table table-bordered table-hover">

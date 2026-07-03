@@ -16,6 +16,12 @@
 
 <div class="container mt-4">
 
+    <a class="nav-link"
+       href="${pageContext.request.contextPath}/admin/dashboard.jsp">
+        Dashboard
+    </a>
+
+
     <h2 class="mb-4">
 
         Order Management

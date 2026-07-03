@@ -36,6 +36,14 @@
 
         </div>
 
+
+        <a href="${pageContext.request.contextPath}/customer/dashboard.jsp"
+           class="btn btn-secondary">
+
+            Dashboard
+
+        </a>
+
         <a href="${pageContext.request.contextPath}/customer/cart"
            class="btn btn-primary">
 

@@ -14,7 +14,7 @@
 
                 <div class="list-group list-group-flush">
 
-                    <a href="${pageContext.request.contextPath}/dashboard.jsp"
+                    <a href="${pageContext.request.contextPath}/admin/dashboard.jsp"
                        class="list-group-item list-group-item-action">
 
                         <i class="bi bi-speedometer2"></i>
@@ -41,7 +41,7 @@
 
                     </a>
 
-                    <a href="#"
+                    <a href="${pageContext.request.contextPath}/admin/inventory"
                        class="list-group-item list-group-item-action">
 
                         <i class="bi bi-boxes"></i>
@@ -50,7 +50,7 @@
 
                     </a>
 
-                    <a href="#"
+                    <a href="${pageContext.request.contextPath}/admin/orders"
                        class="list-group-item list-group-item-action">
 
                         <i class="bi bi-cart"></i>

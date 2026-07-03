@@ -23,6 +23,13 @@
 
     <h2 class="mb-4">My Orders</h2>
 
+    <a href="${pageContext.request.contextPath}/customer/dashboard.jsp"
+       class="btn btn-secondary">
+
+        Dashboard
+
+    </a>
+
     <table class="table table-bordered table-hover">
 
         <thead class="table-dark">
