@@ -92,7 +92,19 @@
 
                 <div class="card-body text-center">
 
-                    My Cart
+                    <div class="col-md-4">
+
+
+
+                                <a href="${pageContext.request.contextPath}/customer/cart"
+                                   class="btn btn-primary">
+
+                                    My Cart
+
+                                </a>
+
+
+                    </div>
 
                 </div>
 
@@ -106,7 +118,19 @@
 
                 <div class="card-body text-center">
 
-                    My Orders
+                    <div class="col-md-4">
+
+
+
+                        <a href="${pageContext.request.contextPath}/customer/my-orders"
+                           class="btn btn-dark">
+
+                            My Orders
+
+                        </a>
+
+
+                    </div>
 
                 </div>
 

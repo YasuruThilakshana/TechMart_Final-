@@ -2,6 +2,7 @@ package lk.jiat.techmart.service.impl;
 
 import jakarta.ejb.Asynchronous;
 import jakarta.ejb.Stateless;
+import lk.jiat.techmart.dto.OrderMessageDTO;
 import lk.jiat.techmart.service.NotificationService;
 
 import java.util.logging.Logger;
@@ -14,26 +15,48 @@ public class NotificationServiceImpl implements NotificationService {
 
     @Override
     @Asynchronous
-    public void sendOrderNotification(Long orderId) {
+    public void sendOrderNotification(OrderMessageDTO order) {
 
-        LOGGER.info("=======================================");
-        System.out.println("ASYNC STARTED");
-        LOGGER.info("Asynchronous Notification Started");
-        System.out.println("ASYNC FINISHED");
-        LOGGER.info("Processing Order ID : " + orderId);
+        sendCustomerEmail(order);
 
-        try {
+        generateInvoice(order);
 
-            Thread.sleep(3000);
+        updateAnalytics(order);
 
-        } catch (InterruptedException e) {
-
-            Thread.currentThread().interrupt();
-
-        }
-
-        LOGGER.info("Notification Completed for Order : " + orderId);
-        LOGGER.info("=======================================");
+        notifyAdmin(order);
 
     }
+
+    @Override
+    public void sendCustomerEmail(OrderMessageDTO order) {
+
+        LOGGER.info("Customer Email Sent : "
+                + order.getCustomerName());
+
+    }
+
+    @Override
+    public void generateInvoice(OrderMessageDTO order) {
+
+        LOGGER.info("Invoice Generated : "
+                + order.getOrderId());
+
+    }
+
+    @Override
+    public void updateAnalytics(OrderMessageDTO order) {
+
+        LOGGER.info("Analytics Updated : "
+                + order.getOrderId());
+
+    }
+
+    @Override
+    public void notifyAdmin(OrderMessageDTO order) {
+
+        LOGGER.info("Admin Notified : "
+                + order.getOrderId());
+
+    }
+
 }

@@ -3,16 +3,16 @@ package lk.jiat.techmart.service.impl;
 import jakarta.ejb.Stateless;
 import jakarta.inject.Inject;
 import lk.jiat.techmart.dao.*;
+import lk.jiat.techmart.dto.OrderMessageDTO;
 import lk.jiat.techmart.entity.*;
+import lk.jiat.techmart.service.CartService;
 import lk.jiat.techmart.service.CheckoutService;
+import lk.jiat.techmart.service.JMSProducerService;
+import lk.jiat.techmart.service.NotificationService;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.List;
-
-import lk.jiat.techmart.service.CartService;
-import lk.jiat.techmart.service.NotificationService;
-import lk.jiat.techmart.service.JMSProducerService;
 
 @Stateless
 public class CheckoutServiceImpl implements CheckoutService {
@@ -50,8 +50,6 @@ public class CheckoutServiceImpl implements CheckoutService {
     @Override
     public Order placeOrder(Long userId) {
 
-
-
         User user = userDAO.findById(userId)
                 .orElseThrow(() ->
                         new RuntimeException("User not found"));
@@ -76,10 +74,7 @@ public class CheckoutServiceImpl implements CheckoutService {
         BigDecimal totalAmount = BigDecimal.ZERO;
 
         for (CartItem item : cartItems) {
-
-            totalAmount =
-                    totalAmount.add(item.getSubtotal());
-
+            totalAmount = totalAmount.add(item.getSubtotal());
         }
 
         order.setTotalAmount(totalAmount);
@@ -134,13 +129,18 @@ public class CheckoutServiceImpl implements CheckoutService {
 
         cartService.clearCart(userId);
 
+        OrderMessageDTO message = new OrderMessageDTO();
 
+        message.setOrderId(order.getId());
+        message.setUserId(user.getId());
+        message.setCustomerName(
+                user.getFirstName() + " " + user.getLastName()
+        );
+        message.setTotalAmount(order.getTotalAmount());
+        message.setOrderDate(order.getOrderDate());
 
-//        notificationService.sendOrderNotification(order.getId());
-        jmsProducerService.sendOrderMessage(order.getId());
-
+        jmsProducerService.sendOrderMessage(message);
 
         return order;
     }
-
 }

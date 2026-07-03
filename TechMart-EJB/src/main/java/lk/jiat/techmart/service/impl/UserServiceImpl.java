@@ -9,9 +9,11 @@ import org.mindrot.jbcrypt.BCrypt;
 
 import java.util.List;
 import java.util.Optional;
-
+import java.time.LocalDateTime;
 @Stateless
 public class UserServiceImpl implements UserService {
+
+
 
     @Inject
     private UserDAO userDAO;
@@ -29,6 +31,7 @@ public class UserServiceImpl implements UserService {
         String hashedPassword = BCrypt.hashpw(user.getPassword(), BCrypt.gensalt());
 
         user.setPassword(hashedPassword);
+        user.setCreatedAt(LocalDateTime.now());
 
         return userDAO.save(user);
     }
@@ -74,6 +77,8 @@ public class UserServiceImpl implements UserService {
                 return Optional.of(user);
             }
         }
+
+
 
         return Optional.empty();
     }
