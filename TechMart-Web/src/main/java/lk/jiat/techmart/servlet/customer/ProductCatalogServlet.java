@@ -1,24 +1,28 @@
 package lk.jiat.techmart.servlet.customer;
 
-import jakarta.inject.Inject;
+import jakarta.ejb.EJB;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+
 import lk.jiat.techmart.service.ProductService;
 
 import java.io.IOException;
 
+
 @WebServlet("/customer/products")
 public class ProductCatalogServlet extends HttpServlet {
 
-    @Inject
+    @EJB
     private ProductService productService;
 
+
     @Override
-    protected void doGet(HttpServletRequest request,
-                         HttpServletResponse response)
+    protected void doGet(
+            HttpServletRequest request,
+            HttpServletResponse response)
             throws ServletException, IOException {
 
         request.setAttribute(
@@ -26,7 +30,12 @@ public class ProductCatalogServlet extends HttpServlet {
                 productService.findActiveProducts()
         );
 
-        request.getRequestDispatcher("/customer/products.jsp")
-                .forward(request, response);
+
+        request.getRequestDispatcher(
+                "/customer/products.jsp"
+        ).forward(
+                request,
+                response
+        );
     }
 }

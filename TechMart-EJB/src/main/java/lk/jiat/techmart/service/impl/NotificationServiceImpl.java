@@ -2,73 +2,165 @@ package lk.jiat.techmart.service.impl;
 
 import jakarta.ejb.Asynchronous;
 import jakarta.ejb.Stateless;
+
 import lk.jiat.techmart.dto.OrderMessageDTO;
 import lk.jiat.techmart.service.NotificationService;
 
+import java.util.logging.Level;
 import java.util.logging.Logger;
+
 
 @Stateless
 public class NotificationServiceImpl implements NotificationService {
 
     private static final Logger LOGGER =
-            Logger.getLogger(NotificationServiceImpl.class.getName());
+            Logger.getLogger(
+                    NotificationServiceImpl.class.getName()
+            );
+
 
     @Override
     @Asynchronous
     public void sendOrderNotification(OrderMessageDTO order) {
 
-        sendCustomerEmail(order);
+        long startTime = System.nanoTime();
 
-        generateInvoice(order);
+        LOGGER.warning(
+                "ASYNC NOTIFICATION STARTED - Order ID : "
+                        + order.getOrderId()
+        );
 
-        updateAnalytics(order);
+        try {
 
-        notifyAdmin(order);
+            // ==========================================
+            // CUSTOMER EMAIL
+            // ==========================================
 
+            try {
+
+                sendCustomerEmail(order);
+
+            } catch (Exception e) {
+
+                LOGGER.log(
+                        Level.SEVERE,
+                        "Customer email notification failed for Order ID : "
+                                + order.getOrderId(),
+                        e
+                );
+            }
+
+
+            // ==========================================
+            // INVOICE GENERATION
+            // ==========================================
+
+            try {
+
+                generateInvoice(order);
+
+            } catch (Exception e) {
+
+                LOGGER.log(
+                        Level.SEVERE,
+                        "Invoice generation failed for Order ID : "
+                                + order.getOrderId(),
+                        e
+                );
+            }
+
+
+            // ==========================================
+            // ANALYTICS UPDATE
+            // ==========================================
+
+            try {
+
+                updateAnalytics(order);
+
+            } catch (Exception e) {
+
+                LOGGER.log(
+                        Level.SEVERE,
+                        "Analytics update failed for Order ID : "
+                                + order.getOrderId(),
+                        e
+                );
+            }
+
+
+            // ==========================================
+            // ADMIN NOTIFICATION
+            // ==========================================
+
+            try {
+
+                notifyAdmin(order);
+
+            } catch (Exception e) {
+
+                LOGGER.log(
+                        Level.SEVERE,
+                        "Admin notification failed for Order ID : "
+                                + order.getOrderId(),
+                        e
+                );
+            }
+
+        } finally {
+
+            long endTime = System.nanoTime();
+
+            long executionTime =
+                    (endTime - startTime) / 1_000_000;
+
+            LOGGER.warning(
+                    "ASYNC NOTIFICATION COMPLETED - Order ID : "
+                            + order.getOrderId()
+                            + " - Execution Time : "
+                            + executionTime
+                            + " ms"
+            );
+        }
     }
+
 
     @Override
     public void sendCustomerEmail(OrderMessageDTO order) {
 
-//        LOGGER.info("Customer Email Sent : "
-//                + order.getCustomerName());
-
-        LOGGER.warning("Customer Email Sent : " + order.getCustomerName());
-
-
+        LOGGER.warning(
+                "Customer Email Sent : "
+                        + order.getCustomerName()
+        );
     }
+
 
     @Override
     public void generateInvoice(OrderMessageDTO order) {
 
-//        LOGGER.info("Invoice Generated : "
-//                + order.getOrderId());
-
-
-        LOGGER.warning("Invoice Generated : " + order.getOrderId());
-
+        LOGGER.warning(
+                "Invoice Generated : "
+                        + order.getOrderId()
+        );
     }
+
 
     @Override
     public void updateAnalytics(OrderMessageDTO order) {
 
-//        LOGGER.info("Analytics Updated : "
-//                + order.getOrderId());
-
-
-        LOGGER.warning("Analytics Updated : " + order.getOrderId());
-
-
+        LOGGER.warning(
+                "Analytics Updated : "
+                        + order.getOrderId()
+        );
     }
+
 
     @Override
     public void notifyAdmin(OrderMessageDTO order) {
 
-//        LOGGER.info("Admin Notified : "
-//                + order.getOrderId());
-
-        LOGGER.warning("Admin Notified : " + order.getOrderId());
-
+        LOGGER.warning(
+                "Admin Notified : "
+                        + order.getOrderId()
+        );
     }
-
 }

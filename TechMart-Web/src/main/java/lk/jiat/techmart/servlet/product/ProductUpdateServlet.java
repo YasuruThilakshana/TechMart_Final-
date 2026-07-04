@@ -1,11 +1,12 @@
 package lk.jiat.techmart.servlet.product;
 
-import jakarta.inject.Inject;
+import jakarta.ejb.EJB;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+
 import lk.jiat.techmart.entity.Inventory;
 import lk.jiat.techmart.entity.Product;
 import lk.jiat.techmart.service.CategoryService;
@@ -16,59 +17,102 @@ import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.Optional;
 
+
 @WebServlet("/admin/products/update")
 public class ProductUpdateServlet extends HttpServlet {
 
-    @Inject
+    @EJB
     private ProductService productService;
 
-    @Inject
+    @EJB
     private CategoryService categoryService;
 
+
     @Override
-    protected void doPost(HttpServletRequest request,
-                          HttpServletResponse response)
+    protected void doPost(
+            HttpServletRequest request,
+            HttpServletResponse response)
             throws ServletException, IOException {
 
-        Long productId = Long.parseLong(request.getParameter("id"));
+        Long productId =
+                Long.parseLong(
+                        request.getParameter("id")
+                );
 
-        Optional<Product> optionalProduct = productService.findById(productId);
+
+        Optional<Product> optionalProduct =
+                productService.findById(productId);
+
 
         if (optionalProduct.isPresent()) {
 
-            Product product = optionalProduct.get();
+            Product product =
+                    optionalProduct.get();
 
-            product.setName(request.getParameter("name"));
-            product.setDescription(request.getParameter("description"));
-            product.setPrice(new BigDecimal(request.getParameter("price")));
 
-            Long categoryId = Long.parseLong(request.getParameter("categoryId"));
+            product.setName(
+                    request.getParameter("name")
+            );
+
+            product.setDescription(
+                    request.getParameter("description")
+            );
+
+            product.setPrice(
+                    new BigDecimal(
+                            request.getParameter("price")
+                    )
+            );
+
+
+            Long categoryId =
+                    Long.parseLong(
+                            request.getParameter("categoryId")
+                    );
+
 
             categoryService.findById(categoryId)
                     .ifPresent(product::setCategory);
 
-            product.setUpdatedAt(LocalDateTime.now());
 
-            Inventory inventory = product.getInventory();
+            product.setUpdatedAt(
+                    LocalDateTime.now()
+            );
+
+
+            Inventory inventory =
+                    product.getInventory();
+
 
             if (inventory != null) {
 
                 inventory.setQuantity(
-                        Integer.parseInt(request.getParameter("quantity"))
+                        Integer.parseInt(
+                                request.getParameter("quantity")
+                        )
                 );
+
 
                 inventory.setReorderLevel(
-                        Integer.parseInt(request.getParameter("reorderLevel"))
+                        Integer.parseInt(
+                                request.getParameter("reorderLevel")
+                        )
                 );
 
-                inventory.setLastUpdated(LocalDateTime.now());
+
+                inventory.setLastUpdated(
+                        LocalDateTime.now()
+                );
             }
+
 
             productService.update(product);
         }
 
+
         response.sendRedirect(
-                request.getContextPath() + "/admin/products"
+                request.getContextPath()
+                        + "/admin/products"
         );
     }
 }

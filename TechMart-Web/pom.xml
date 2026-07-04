@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
+
 <project xmlns="http://maven.apache.org/POM/4.0.0"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
@@ -17,7 +18,12 @@
 
     <packaging>war</packaging>
 
+
     <dependencies>
+
+        <!-- ====================================== -->
+        <!-- CORE MODULE                           -->
+        <!-- ====================================== -->
 
         <dependency>
             <groupId>lk.jiat</groupId>
@@ -25,11 +31,26 @@
             <version>${project.version}</version>
         </dependency>
 
+
+        <!-- ====================================== -->
+        <!-- EJB MODULE                            -->
+        <!-- Compile-time reference only.          -->
+        <!-- EJB implementation is packaged        -->
+        <!-- separately inside the EAR.            -->
+        <!-- ====================================== -->
+
         <dependency>
             <groupId>lk.jiat</groupId>
             <artifactId>TechMart-EJB</artifactId>
             <version>${project.version}</version>
+
+            <scope>provided</scope>
         </dependency>
+
+
+        <!-- ====================================== -->
+        <!-- JAKARTA EE API                        -->
+        <!-- ====================================== -->
 
         <dependency>
             <groupId>jakarta.platform</groupId>
@@ -38,11 +59,21 @@
             <scope>provided</scope>
         </dependency>
 
+
+        <!-- ====================================== -->
+        <!-- JSTL API                              -->
+        <!-- ====================================== -->
+
         <dependency>
             <groupId>jakarta.servlet.jsp.jstl</groupId>
             <artifactId>jakarta.servlet.jsp.jstl-api</artifactId>
             <version>3.0.0</version>
         </dependency>
+
+
+        <!-- ====================================== -->
+        <!-- JSTL IMPLEMENTATION                   -->
+        <!-- ====================================== -->
 
         <dependency>
             <groupId>org.glassfish.web</groupId>
@@ -52,21 +83,33 @@
 
     </dependencies>
 
+
     <build>
+
         <plugins>
 
             <plugin>
+
                 <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-war-plugin</artifactId>
+
+                <artifactId>
+                    maven-war-plugin
+                </artifactId>
+
                 <version>3.4.0</version>
 
                 <configuration>
-                    <failOnMissingWebXml>false</failOnMissingWebXml>
+
+                    <failOnMissingWebXml>
+                        false
+                    </failOnMissingWebXml>
+
                 </configuration>
 
             </plugin>
 
         </plugins>
+
     </build>
 
 </project>

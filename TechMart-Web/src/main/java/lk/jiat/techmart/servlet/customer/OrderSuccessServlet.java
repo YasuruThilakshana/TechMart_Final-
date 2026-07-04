@@ -12,15 +12,24 @@ import java.io.IOException;
 public class OrderSuccessServlet extends HttpServlet {
 
     @Override
-    protected void doGet(HttpServletRequest request,
-                         HttpServletResponse response)
+    protected void doGet(
+            HttpServletRequest request,
+            HttpServletResponse response)
             throws ServletException, IOException {
 
-        String orderId = request.getParameter("id");
+        String orderId =
+                request.getParameter("id");
 
-        request.setAttribute("orderId", orderId);
+        request.setAttribute(
+                "orderId",
+                orderId
+        );
 
-        request.getRequestDispatcher("/customer/order-success.jsp")
-                .forward(request, response);
+        request.getRequestDispatcher(
+                "/customer/order-success.jsp"
+        ).forward(
+                request,
+                response
+        );
     }
 }

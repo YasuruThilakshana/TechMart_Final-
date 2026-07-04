@@ -15,5 +15,4 @@ public interface NotificationService {
     void updateAnalytics(OrderMessageDTO order);
 
     void notifyAdmin(OrderMessageDTO order);
-
 }

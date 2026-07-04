@@ -14,13 +14,16 @@ import java.util.logging.Logger;
 public class PerformanceInterceptor {
 
     private static final Logger LOGGER =
-            Logger.getLogger(PerformanceInterceptor.class.getName());
+            Logger.getLogger(
+                    PerformanceInterceptor.class.getName()
+            );
 
     @Inject
     private PerformanceMonitorBean performanceMonitorBean;
 
     @AroundInvoke
-    public Object monitorPerformance(InvocationContext context) throws Exception {
+    public Object monitorPerformance(
+            InvocationContext context) throws Exception {
 
         long startTime = System.nanoTime();
 
@@ -30,21 +33,29 @@ public class PerformanceInterceptor {
 
         } finally {
 
+            long endTime = System.nanoTime();
+
             long executionTime =
-                    (System.nanoTime() - startTime) / 1_000_000;
+                    (endTime - startTime) / 1_000_000;
 
             String methodName =
-                    context.getTarget().getClass().getSimpleName()
+                    context.getTarget()
+                            .getClass()
+                            .getSimpleName()
                             + "."
                             + context.getMethod().getName();
 
-            performanceMonitorBean.recordExecution(methodName, executionTime);
+            performanceMonitorBean.recordExecution(
+                    methodName,
+                    executionTime
+            );
 
-            LOGGER.warning(methodName + " executed in "
-                    + executionTime + " ms");
-
+            LOGGER.warning(
+                    methodName
+                            + " executed in "
+                            + executionTime
+                            + " ms"
+            );
         }
-
     }
-
 }
