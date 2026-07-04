@@ -1,30 +1,84 @@
 <?xml version="1.0" encoding="UTF-8"?>
+
 <persistence xmlns="https://jakarta.ee/xml/ns/persistence"
              xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
              xsi:schemaLocation="https://jakarta.ee/xml/ns/persistence
              https://jakarta.ee/xml/ns/persistence/persistence_3_1.xsd"
              version="3.0">
 
-    <persistence-unit name="TechMartPU" transaction-type="JTA">
+    <persistence-unit name="TechMartPU"
+                      transaction-type="JTA">
 
-        <jta-data-source>jdbc/techmart_db</jta-data-source>
+        <!-- ===================================== -->
+        <!-- JTA DATASOURCE                       -->
+        <!-- ===================================== -->
+
+        <jta-data-source>
+            jdbc/techmart_db
+        </jta-data-source>
+
+
+        <!-- ===================================== -->
+        <!-- EXISTING ENTITIES                    -->
+        <!-- ===================================== -->
 
         <class>lk.jiat.techmart.entity.User</class>
+
         <class>lk.jiat.techmart.entity.Category</class>
+
         <class>lk.jiat.techmart.entity.Product</class>
+
         <class>lk.jiat.techmart.entity.Inventory</class>
+
         <class>lk.jiat.techmart.entity.Cart</class>
+
         <class>lk.jiat.techmart.entity.CartItem</class>
+
         <class>lk.jiat.techmart.entity.Order</class>
+
         <class>lk.jiat.techmart.entity.OrderItem</class>
+
         <class>lk.jiat.techmart.entity.Payment</class>
+
         <class>lk.jiat.techmart.entity.Notification</class>
 
-        <exclude-unlisted-classes>false</exclude-unlisted-classes>
+
+        <!-- ===================================== -->
+        <!-- MULTI-WAREHOUSE ENTITIES             -->
+        <!-- ===================================== -->
+
+        <class>lk.jiat.techmart.entity.Warehouse</class>
+
+        <class>lk.jiat.techmart.entity.WarehouseInventory</class>
+
+
+        <!-- ===================================== -->
+        <!-- ENTITY DISCOVERY                     -->
+        <!-- ===================================== -->
+
+        <exclude-unlisted-classes>
+            false
+        </exclude-unlisted-classes>
+
+
+        <!-- ===================================== -->
+        <!-- DATABASE CONFIGURATION               -->
+        <!-- ===================================== -->
 
         <properties>
-            <property name="jakarta.persistence.schema-generation.database.action"
-                      value="none"/>
+
+            <!--
+                Database schema is managed manually.
+
+                IMPORTANT:
+                Existing tables and data will NOT be
+                automatically deleted or recreated.
+            -->
+
+            <property
+                    name="jakarta.persistence.schema-generation.database.action"
+                    value="none"/>
+
         </properties>
 
     </persistence-unit>
