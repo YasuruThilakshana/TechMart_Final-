@@ -32,9 +32,7 @@ public class NotificationServiceImpl implements NotificationService {
 
         try {
 
-            // ==========================================
-            // CUSTOMER EMAIL
-            // ==========================================
+
 
             try {
 
@@ -51,9 +49,6 @@ public class NotificationServiceImpl implements NotificationService {
             }
 
 
-            // ==========================================
-            // INVOICE GENERATION
-            // ==========================================
 
             try {
 
@@ -70,9 +65,7 @@ public class NotificationServiceImpl implements NotificationService {
             }
 
 
-            // ==========================================
-            // ANALYTICS UPDATE
-            // ==========================================
+
 
             try {
 
@@ -89,9 +82,7 @@ public class NotificationServiceImpl implements NotificationService {
             }
 
 
-            // ==========================================
-            // ADMIN NOTIFICATION
-            // ==========================================
+
 
             try {
 

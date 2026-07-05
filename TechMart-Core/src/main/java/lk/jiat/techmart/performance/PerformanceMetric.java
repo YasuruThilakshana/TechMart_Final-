@@ -47,9 +47,7 @@ public class PerformanceMetric implements Serializable {
 
     }
 
-    // ==========================
-    // Getters & Setters
-    // ==========================
+
 
     public String getMethodName() {
         return methodName;

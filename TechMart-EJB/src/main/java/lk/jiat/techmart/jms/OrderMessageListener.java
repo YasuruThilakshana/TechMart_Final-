@@ -43,11 +43,6 @@ public class OrderMessageListener implements MessageListener {
 
             OrderMessageDTO order =
                     (OrderMessageDTO) objectMessage.getObject();
-//
-//            LOGGER.info("======================================");
-//            LOGGER.info("JMS Message Received");
-//            LOGGER.info("Order ID : " + order.getOrderId());
-//            LOGGER.info("======================================");
 
             LOGGER.warning("======================================");
             LOGGER.warning("JMS Message Received");

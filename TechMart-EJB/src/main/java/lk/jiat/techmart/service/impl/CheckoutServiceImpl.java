@@ -66,9 +66,7 @@ public class CheckoutServiceImpl implements CheckoutService {
     @Override
     public Order placeOrder(Long userId) {
 
-        // ==========================================
-        // 1. FIND USER
-        // ==========================================
+
 
         User user = userDAO.findById(userId)
                 .orElseThrow(() ->
@@ -76,9 +74,7 @@ public class CheckoutServiceImpl implements CheckoutService {
                 );
 
 
-        // ==========================================
-        // 2. FIND SHOPPING CART
-        // ==========================================
+
 
         Cart cart = cartDAO.findByUserId(userId)
                 .orElseThrow(() ->
@@ -86,9 +82,7 @@ public class CheckoutServiceImpl implements CheckoutService {
                 );
 
 
-        // ==========================================
-        // 3. LOAD CART ITEMS
-        // ==========================================
+
 
         List<CartItem> cartItems =
                 cartItemDAO.findByCartId(cart.getId());
@@ -101,9 +95,7 @@ public class CheckoutServiceImpl implements CheckoutService {
         }
 
 
-        // ==========================================
-        // 4. VALIDATE WAREHOUSE STOCK
-        // ==========================================
+
 
         for (CartItem cartItem : cartItems) {
 
@@ -123,9 +115,7 @@ public class CheckoutServiceImpl implements CheckoutService {
         }
 
 
-        // ==========================================
-        // 5. CREATE ORDER
-        // ==========================================
+
 
         Order order = new Order();
 
@@ -138,9 +128,7 @@ public class CheckoutServiceImpl implements CheckoutService {
         order.setStatus("PENDING");
 
 
-        // ==========================================
-        // 6. CALCULATE TOTAL
-        // ==========================================
+
 
         BigDecimal totalAmount =
                 BigDecimal.ZERO;
@@ -156,17 +144,12 @@ public class CheckoutServiceImpl implements CheckoutService {
         order.setTotalAmount(totalAmount);
 
 
-        // ==========================================
-        // 7. SAVE ORDER
-        // ==========================================
+
 
         order = orderDAO.save(order);
 
 
-        // ==========================================
-        // 8. CREATE ORDER ITEMS
-        //    AND DEDUCT WAREHOUSE STOCK
-        // ==========================================
+
 
         for (CartItem cartItem : cartItems) {
 
@@ -192,12 +175,12 @@ public class CheckoutServiceImpl implements CheckoutService {
             );
 
 
-            // Save Order Item
+
 
             orderItemDAO.save(orderItem);
 
 
-            // Multi-Warehouse Stock Deduction
+
 
             warehouseInventoryService.deductStock(
                     cartItem.getProduct().getId(),
@@ -206,9 +189,6 @@ public class CheckoutServiceImpl implements CheckoutService {
         }
 
 
-        // ==========================================
-        // 9. CREATE PAYMENT
-        // ==========================================
 
         Payment payment =
                 new Payment();
@@ -229,16 +209,12 @@ public class CheckoutServiceImpl implements CheckoutService {
         paymentDAO.save(payment);
 
 
-        // ==========================================
-        // 10. CLEAR SHOPPING CART
-        // ==========================================
+
 
         cartService.clearCart(userId);
 
 
-        // ==========================================
-        // 11. CREATE JMS ORDER MESSAGE
-        // ==========================================
+
 
         OrderMessageDTO message =
                 new OrderMessageDTO();
@@ -266,18 +242,14 @@ public class CheckoutServiceImpl implements CheckoutService {
         );
 
 
-        // ==========================================
-        // 12. SEND JMS MESSAGE
-        // ==========================================
+
 
         jmsProducerService.sendOrderMessage(
                 message
         );
 
 
-        // ==========================================
-        // 13. RETURN ORDER
-        // ==========================================
+
 
         return order;
     }
